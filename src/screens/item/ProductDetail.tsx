@@ -205,12 +205,14 @@ import styles from "../../styles/item/ProductDetail";
 import { NavigationProp, useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { RootStackParamList } from "../../types/route";
 import { useCart } from "../../contexts/CartContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 const DetailScreen = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList, "Detail">>();
     const route = useRoute<RouteProp<RootStackParamList, "Detail">>();
     const { product } = route.params;
     const { addToCart } = useCart();
+    const { user } = useAuth();
 
     // SubImages chỉ sử dụng product.image, giả lập thành 3 hình giống nhau
     const subImages = [product.image, product.image, product.image];
@@ -255,8 +257,8 @@ const DetailScreen = () => {
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate("Main", { screen: "Profile" })}>
                         <Image
-                            source={require("../../../assets/user.png")}
-                            style={{ width: 30, height: 30 }}
+                            source={user?.avatar ? { uri: user.avatar } : require('../../../assets/user.png')}
+                                    style={{ width: 30, height: 30, borderRadius: 5 }}
                         />
                     </TouchableOpacity>
                 </View>

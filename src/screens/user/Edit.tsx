@@ -18,6 +18,7 @@ const EditScreen = () => {
     const [name, setName] = useState(user?.name || '');
     const [email, setEmail] = useState(user?.username || '');
     const [password, setPassword] = useState(user?.password ?? '');
+    const [address, setAddress] = useState(user?.address || '');
     const [avatar, setAvatar] = useState(user?.avatar || null);
     const handleUpdateProfile = async () => {
         if (!user) return;  // không làm gì nếu chưa đăng nhập
@@ -28,7 +29,8 @@ const EditScreen = () => {
             name,
             username: email,
             password,
-            avatar
+            avatar,
+            address,
             // phone,
             // gender
         };
@@ -77,7 +79,7 @@ const EditScreen = () => {
                 const updatedUser = { ...user, avatar: selectedAsset.uri };
                 setUser(updatedUser);
             }
-        }        
+        }
     };
 
     return (
@@ -132,7 +134,13 @@ const EditScreen = () => {
                         value={name}
                         onChangeText={setName}
                     />
-
+                    <Text style={styles.label}>Address</Text>
+                    <TextInput
+                        placeholder="e.g. 123 Main St, City"
+                        style={styles.input}
+                        value={address}
+                        onChangeText={setAddress}
+                    />
 
                     <Text style={styles.label}>E-mail</Text>
                     <TextInput

@@ -52,7 +52,7 @@ const ProfileScreen = () => {
                             />
                             <View style={{ marginLeft: 10, marginBottom: 15 }}>
                                 <Text style={styles.name}>{user ? user.name : "Guest"}</Text>
-                                <Text style={styles.location}>Maple Ave, New York</Text>
+                                <Text style={styles.location}>{user?.address || "No address provided"}</Text>
                             </View>
                         </View>
                         <TouchableOpacity

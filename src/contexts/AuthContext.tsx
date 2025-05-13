@@ -7,12 +7,13 @@ type User = {
     username: string;
     password: string;
     avatar?: string;
+    address?: string; 
 };
 
 type AuthContextType = {
     user: User | null;
     login: (username: string, password: string) => Promise<boolean>;
-    signup: (name: string, username: string, password: string) => Promise<boolean>;
+    signup: (name: string, username: string, password: string, address?: string) => Promise<boolean>;
     logout: () => void;
     setUser: React.Dispatch<React.SetStateAction<User | null>>;
     setAvatar: (avatar: string | null) => void;
@@ -48,7 +49,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             Alert.alert("Notification", "Password is at least 5 characters!");
             return false;
         }
-
+        
         if (!isValidEmail(username)) {
             Alert.alert("Notification", "Invalid email format!");
             return false;
@@ -68,7 +69,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         return false;
     };
 
-    const signup = async (name: string, username: string, password: string) => {
+    const signup = async (name: string, username: string, password: string,address: string = '' ) => {
         if (!name.trim() && !username.trim() && !password.trim()) {
             Alert.alert("Notification", "Please fill all fields!");
             return false;
@@ -112,7 +113,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
 
         // Store the new user in AsyncStorage
-        const newUser: User = { name, username, password ,avatar: null};
+        const newUser: User = { name, username, password ,avatar: null, address};
         await AsyncStorage.setItem(username, JSON.stringify(newUser));
 
         setUser(newUser);

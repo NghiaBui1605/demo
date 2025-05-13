@@ -24,9 +24,10 @@ const SignUpScreen = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [address, setAddress] = useState("");
 
     const handleSignUp = async () => {
-        const success = await signup(name, username, password);
+        const success = await signup(name, username, password, address);
         if (success) {
             Alert.alert("Notification", "Create account successfully!", [
                 {
@@ -68,6 +69,16 @@ const SignUpScreen = () => {
                                 placeholder="Name"
                                 placeholderTextColor="#888"
                                 onChangeText={setName}
+                            />
+                        </View>
+                        <View style={styles.inputWrapper}>
+                            <Icon name="location-on" size={20} color="#888" style={styles.icon} />
+                            <TextInput
+                                value={address}
+                                style={styles.input}
+                                placeholder="Address"
+                                placeholderTextColor="#888"
+                                onChangeText={setAddress}
                             />
                         </View>
 
